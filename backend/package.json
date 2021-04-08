@@ -1,24 +1,36 @@
 {
-  "name": "serverless-capstone",
-  "version": "2.2.0",
-  "description": "A Node.js starter for Serverless Framework with ES6 and TypeScript support",
-  "main": "handler.js",
-  "scripts": {
-    "test": "serverless-bundle test"
-  },
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AnomalyInnovations/serverless-nodejs-starter.git"
+  "name": "serverless-todo-app",
+  "version": "1.0.0",
+  "description": "Serverless TODO image app",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/http-errors": "^1.8.0",
+    "aws-xray-sdk": "^3.0.0",
+    "axios": "^0.21.1",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "middy": "^0.27.1",
+    "serverless-plugin-tracing": "^2.0.0",
+    "source-map-support": "^0.5.19",
+    "uuid": "^3.4.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "aws-sdk": "^2.877.0",
-    "serverless-bundle": "^3.2.0",
-    "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.3.3"
+    "@types/aws-lambda": "^8.10.72",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/node": "^10.17.55",
+    "aws-sdk": "^2.860.0",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-iam-roles-per-function": "^3.1.1-720dc0f",
+    "serverless-offline": "^6.8.0",
+    "serverless-plugin-canary-deployments": "^0.4.8",
+    "serverless-reqvalidator-plugin": "^1.0.4",
+    "serverless-webpack": "^5.3.5",
+    "ts-loader": "^5.4.5",
+    "typescript": "^3.9.9",
+    "webpack": "^4.46.0"
   },
-  "dependencies": {
-    "uuid": "^7.0.3"
-  }
+  "author": "Ivan Mushketyk",
+  "license": "MIT"
 }
