@@ -1,21 +1,21 @@
-# NOTE: update this with your service name
-service: serverless-capstone
-
-# Create an optimized package for our functions 
-package:
-  individually: true
+service:
+  name: serverless-todo-app
 
 plugins:
-  - serverless-bundle # Package our functions with Webpack
-  - serverless-offline
-  - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-plugin-tracing
 
 provider:
   name: aws
-  runtime: nodejs10.x
-  
+  runtime: nodejs12.x
+
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-central-1'}
+
+  tracing:
+  lambda: true
+  apiGateway: true
 
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
@@ -24,9 +24,14 @@ provider:
     SIGNED_URL_EXPIRATION: 3600
     AUTH_0_JWKS_URL: dev-r82qdi-o.eu.auth0.com/.well-known/jwks.json
 
-  tracing:
-    lambda: true
-    apiGateway: true
+custom:
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+    start:
+      inMemory: true
+      migrate: true 
+
 
 functions:
 
