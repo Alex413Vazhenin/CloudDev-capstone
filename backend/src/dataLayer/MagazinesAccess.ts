@@ -2,7 +2,7 @@ import * as AWS  from 'aws-sdk'
 process.env._X_AMZN_TRACE_ID = '_X_AMZN_TRACE_ID'
 
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { UpdateTodoRequest } from '../requests/UpdateMagazineRequest'
 
 const AWSXRay = require('aws-xray-sdk')
 const XAWS = AWSXRay.captureAWS(AWS)

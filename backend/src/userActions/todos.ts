@@ -2,8 +2,8 @@ import * as uuid from 'uuid'
 
 import { TodoItem } from '../models/TodoItem'
 import { TodosAccess } from '../dataLayer/MagazinesAccess'
-import { CreateTodoRequest } from '../requests/CreateTodoRequest'
-import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { CreateTodoRequest } from '../requests/CreateMagazineRequest'
+import { UpdateTodoRequest } from '../requests/UpdateMagazineRequest'
 import { parseUserId } from '../auth/utils'
 
 const todosAccess = new TodosAccess()
