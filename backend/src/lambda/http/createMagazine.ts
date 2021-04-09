@@ -2,11 +2,11 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 
-import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
+import { CreateMagazineRequest } from '../../requests/CreateMagazineRequest'
 import { createTodo } from '../../userActions/todos'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const newTodo: CreateTodoRequest = JSON.parse(event.body)
+  const newTodo: CreateMagazineRequest = JSON.parse(event.body)
 
   // TODO: Implement creating a new TODO item
   const authorization = event.headers.Authorization
