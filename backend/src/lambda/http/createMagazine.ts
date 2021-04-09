@@ -3,7 +3,7 @@ import 'source-map-support/register'
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 
 import { CreateMagazineRequest } from '../../requests/CreateMagazineRequest'
-import { createTodo } from '../../userActions/magazines'
+import { createMagazine } from '../../userActions/magazines'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const newMagazine: CreateMagazineRequest = JSON.parse(event.body)
@@ -13,7 +13,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const split = authorization.split(' ')
   const jwtToken = split[1]
 
-  const newItem = await createTodo(newMagazine, jwtToken)
+  const newItem = await createMagazine(newMagazine, jwtToken)
   
   return {
     statusCode: 201,

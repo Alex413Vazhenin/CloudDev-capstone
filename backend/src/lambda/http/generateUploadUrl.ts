@@ -1,20 +1,20 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import { generateUploadUrl, updateTodoUrl } from '../../userActions/magazines'
+import { generateUploadUrl, updateMagazineUrl } from '../../userActions/magazines'
 
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const todoId = event.pathParameters.todoId
+  const magazineId = event.pathParameters.magazineId
 
-  // TODO: Return a presigned URL to upload a file for a TODO item with the provided id
+  // TODO: Return a presigned URL to upload a file for a magazine item with the provided id
 
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')
   const jwtToken = split[1]
   
-  const signedUrl = generateUploadUrl(todoId)
-  await updateTodoUrl(todoId, jwtToken)
+  const signedUrl = generateUploadUrl(magazineId)
+  await updateMagazineUrl(magazineId, jwtToken)
 
   return {
     statusCode: 201,

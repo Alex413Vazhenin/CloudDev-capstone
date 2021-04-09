@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } f
 import { deleteMagazine } from '../../userActions/magazines'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const magazineId = event.pathParameters.todoId
+  const magazineId = event.pathParameters.magazineId
 
   // TODO: Remove a magazine item by id
 
