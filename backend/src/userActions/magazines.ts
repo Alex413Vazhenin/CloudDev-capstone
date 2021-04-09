@@ -1,6 +1,6 @@
 import * as uuid from 'uuid'
 
-import { TodoItem } from '../models/TodoItem'
+import { TodoItem } from '../models/MagazineItem'
 import { TodosAccess } from '../dataLayer/MagazinesAccess'
 import { CreateTodoRequest } from '../requests/CreateMagazineRequest'
 import { UpdateTodoRequest } from '../requests/UpdateMagazineRequest'
