@@ -1,0 +1,8 @@
+export interface MagazineItem {
+  userId: string
+  magazineId: string
+  createdAt: string
+  title: string
+  topic: string
+  coverUrl: string
+}

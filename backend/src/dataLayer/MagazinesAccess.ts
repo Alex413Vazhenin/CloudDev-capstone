@@ -2,7 +2,7 @@ import * as AWS  from 'aws-sdk'
 process.env._X_AMZN_TRACE_ID = '_X_AMZN_TRACE_ID'
 
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import { UpdateTodoRequest } from '../requests/UpdateMagazineRequest'
+import { UpdateMagazineRequest } from '../requests/UpdateMagazineRequest'
 
 const AWSXRay = require('aws-xray-sdk')
 const XAWS = AWSXRay.captureAWS(AWS)
@@ -10,25 +10,25 @@ const XAWS = AWSXRay.captureAWS(AWS)
 import { createLogger } from '../utils/logger'
 const logger = createLogger('dataLayer')
 
-import { TodoItem } from '../models/TodoItem'
+import { MagazineItem } from '../models/MagazineItem'
 import { S3 } from 'aws-sdk'
 
-export class TodosAccess {
+export class MagazinesAccess {
 
     constructor(
         private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
-        private readonly todosTable = process.env.TODOS_TABLE,
+        private readonly todosTable = process.env.MAGAZINES_TABLE,
         private readonly indexName = process.env.INDEX_NAME,
         private readonly s3: S3 =  new XAWS.S3({
           signatureVersion: 'v4'
         })) {
       }
 
-    async getAllTodos(userId): Promise<TodoItem[]> {
-        logger.info('Getting all Todos')
+    async getAllMagazines(userId): Promise<MagazineItem[]> {
+        logger.info('Getting all Magazines')
 
     const result = await this.docClient.query({
-        TableName: this.todosTable,
+        TableName: this.magazinesTable,
         IndexName: this.indexName,
         KeyConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: {
@@ -41,23 +41,23 @@ export class TodosAccess {
         // Additional info stored in logs
             userId
         })
-        return items as TodoItem[]
+        return items as MagazineItem[]
     }
 
-    async createTodo(todo: TodoItem): Promise<TodoItem> {
+    async createTodo(todo: MagazineItem): Promise<MagazineItem> {
         await this.docClient.put({
-          TableName: this.todosTable,
+          TableName: this.magazinesTable,
           Item: todo
         }).promise()
     
-        logger.info('Todo has been succesfully created')
+        logger.info('Magazine has been succesfully created')
         return todo
     }
 
-    async updateTodo(update: UpdateTodoRequest, userId: string, todoId: string ): Promise<String> {
+    async updateMagazine(update: UpdateMagazineRequest, userId: string, todoId: string ): Promise<String> {
         const { name,dueDate,done } = update
         const params = {
-            TableName: this.todosTable,
+            TableName: this.magazinesTable,
             Key:                  
               {todoId,
               userId},
