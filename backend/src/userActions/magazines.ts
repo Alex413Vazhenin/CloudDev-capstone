@@ -1,34 +1,32 @@
 import * as uuid from 'uuid'
 
-import { TodoItem } from '../models/MagazineItem'
-import { TodosAccess } from '../dataLayer/MagazinesAccess'
-import { CreateTodoRequest } from '../requests/CreateMagazineRequest'
-import { UpdateTodoRequest } from '../requests/UpdateMagazineRequest'
+import { MagazineItem } from '../models/MagazineItem'
+import { MagazinesAccess } from '../dataLayer/MagazinesAccess'
+import { CreateMagazineRequest } from '../requests/CreateMagazineRequest'
+import { UpdateMagazineRequest } from '../requests/UpdateMagazineRequest'
 import { parseUserId } from '../auth/utils'
 
-const todosAccess = new TodosAccess()
+const MagazinesAccess = new MagazinesAccess()
 
-export async function getAllTodos(jwtToken): Promise<TodoItem[]> {
+export async function getAllMagazines(jwtToken): Promise<MagazineItem[]> {
     const userId = parseUserId(jwtToken)
-    return todosAccess.getAllTodos(userId)
+    return magazinesAccess.getAllMagazines(userId)
 }
 
-export async function createTodo(
-    createTodoRequest: CreateTodoRequest,
+export async function createMagazine(
+    createMagazineRequest: CreateMagazineRequest,
     jwtToken: string
-): Promise<TodoItem> {
+): Promise<MagazineItem> {
   
-    const todoId = uuid.v4()
+    const magazineId = uuid.v4()
     const userId = parseUserId(jwtToken)  
     const attachmentUrl = ``
     
-    return await todosAccess.createTodo({
-      todoId,
+    return await magazinesAccess.createMagazine({
+      magazineId,
       userId,
-      name: createTodoRequest.name,
-      dueDate: createTodoRequest.dueDate,
-      createdAt: new Date().toISOString(),
-      done: false,
+      title: createMagazineRequest.title,
+      topic: createMagazineRequest.topic,
       attachmentUrl: attachmentUrl
     })
 }

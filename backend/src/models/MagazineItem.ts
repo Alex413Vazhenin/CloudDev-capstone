@@ -4,5 +4,4 @@ export interface MagazineItem {
   createdAt: string
   title: string
   topic: string
-  coverUrl: string
 }
