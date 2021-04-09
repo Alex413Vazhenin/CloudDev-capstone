@@ -6,7 +6,7 @@ import { CreateMagazineRequest } from '../requests/CreateMagazineRequest'
 import { UpdateMagazineRequest } from '../requests/UpdateMagazineRequest'
 import { parseUserId } from '../auth/utils'
 
-const MagazinesAccess = new MagazinesAccess()
+const magazinesAccess = new MagazinesAccess()
 
 export async function getAllMagazines(jwtToken): Promise<MagazineItem[]> {
     const userId = parseUserId(jwtToken)
@@ -31,35 +31,34 @@ export async function createMagazine(
     })
 }
 
-export async function updateTodo(
-    updateTodoRequest: UpdateTodoRequest,
-    todoId: string, jwtToken:string) {
+export async function updateMagazine(
+    updateMagazineRequest: UpdateMagazineRequest,
+    magazineId: string, jwtToken:string) {
     const userId = parseUserId(jwtToken)
 
-return await todosAccess.updateTodo({
-    name: updateTodoRequest.name,
-    dueDate: updateTodoRequest.dueDate,
-    done: updateTodoRequest.done
+return await magazinesAccess.updateMagazine({
+    title: updateMagazineRequest.title,
+    topic: updateMagazineRequest.topic,
 },
-    userId, todoId)    
+    userId, magazineId)    
     }
-export async function deleteTodo(
-    todoId: string, jwtToken: string
+export async function deleteMagazine(
+    magazineId: string, jwtToken: string
     ) {
     const userId = parseUserId(jwtToken)
     
-return await todosAccess.deleteTodo(todoId, userId)
+return await magazinesAccess.deleteTodo(magazineId, userId)
 }
 
-export function generateUploadUrl(todoId) {
-    const signedUrl = todosAccess.generateUploadUrl(todoId)
+export function generateUploadUrl(magazineId) {
+    const signedUrl = magazinesAccess.generateUploadUrl(magazineId)
     return signedUrl
 }
 
-export async function updateTodoUrl(todoId: string, jwtToken){
+export async function updateMagazineUrl(magazineId: string, jwtToken){
     const userId = parseUserId(jwtToken)
-    return await todosAccess.updateTodoUrl(
+    return await magazinesAccess.updateTodoUrl(
         userId,
-        todoId
+        magazineId
     )
 }
