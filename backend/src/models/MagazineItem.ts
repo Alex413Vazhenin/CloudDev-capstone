@@ -4,4 +4,5 @@ export interface MagazineItem {
   createdAt: string
   title: string
   topic: string
+  attachmentUrl: string
 }

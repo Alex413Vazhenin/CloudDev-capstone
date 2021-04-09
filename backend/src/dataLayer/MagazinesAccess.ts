@@ -44,7 +44,7 @@ export class MagazinesAccess {
         return items as MagazineItem[]
     }
 
-    async createTodo(magazine: MagazineItem): Promise<MagazineItem> {
+    async createMagazine(magazine: MagazineItem): Promise<MagazineItem> {
         await this.docClient.put({
           TableName: this.magazinesTable,
           Item: magazine
