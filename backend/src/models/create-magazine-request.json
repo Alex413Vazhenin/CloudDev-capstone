@@ -1,19 +1,19 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "createTodo",
+    "title": "createMagazine",
     "type": "object",
     "properties": {
-        "name": {
+        "title": {
             "type": "string",
             "minLength": 3
         },
-        "dueDate": 
+        "topic": 
         {
             "type": "string"
         }
     },
     "required": [
-        "name",
-        "dueDate"
+        "title",
+        "topic"
     ]
 }

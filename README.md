@@ -16,6 +16,8 @@ The application should store TODO items, and each TODO item contains the followi
 * `done` (boolean) - true if an item was completed, false otherwise
 * `attachmentUrl` (string) (optional) - a URL pointing to an image attached to a TODO item
 
+Minimal magazine title length - 3 symbols
+
 You might also store an id of a user who created a TODO item.
 
 

@@ -1,22 +1,18 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "title": "updateTodo",
+    "title": "updateMagazine",
     "type": "object",
     "properties": {
-        "name": {
+        "title": {
             "type": "string"
         },
-        "dueDate": 
+        "topic": 
         {
             "type": "string"
-        },
-        "done": {
-            "type": "boolean"
         }
     },
     "required": [
-        "name",
-        "dueDate",
-        "done"
+        "title",
+        "topic"
     ]
 }
