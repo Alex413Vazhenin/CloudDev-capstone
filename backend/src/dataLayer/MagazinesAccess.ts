@@ -17,7 +17,7 @@ export class MagazinesAccess {
 
     constructor(
         private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
-        private readonly todosTable = process.env.MAGAZINES_TABLE,
+        private readonly magazinesTable = process.env.MAGAZINES_TABLE,
         private readonly indexName = process.env.INDEX_NAME,
         private readonly s3: S3 =  new XAWS.S3({
           signatureVersion: 'v4'
@@ -37,40 +37,38 @@ export class MagazinesAccess {
         }).promise();
 
     const items = result.Items
-        logger.info('All todos are collected', {
+        logger.info('All magazines are collected', {
         // Additional info stored in logs
             userId
         })
         return items as MagazineItem[]
     }
 
-    async createTodo(todo: MagazineItem): Promise<MagazineItem> {
+    async createTodo(magazine: MagazineItem): Promise<MagazineItem> {
         await this.docClient.put({
           TableName: this.magazinesTable,
-          Item: todo
+          Item: magazine
         }).promise()
     
         logger.info('Magazine has been succesfully created')
-        return todo
+        return magazine
     }
 
-    async updateMagazine(update: UpdateMagazineRequest, userId: string, todoId: string ): Promise<String> {
-        const { name,dueDate,done } = update
+    async updateMagazine(update: UpdateMagazineRequest, userId: string, magazineId: string ): Promise<String> {
+        const { title, topic } = update
         const params = {
             TableName: this.magazinesTable,
             Key:                  
-              {todoId,
+              {magazineId,
               userId},
-            UpdateExpression: "set #name=:n, #dueDate=:dD, #done=:d",
+            UpdateExpression: "set #title=:ti, #topic=:to",
             ExpressionAttributeValues: {
-              ':n': name,
-              ':dD': dueDate,
-              ':d': done
+              ':ti': title,
+              ':to': topic
             },
             ExpressionAttributeNames: {
-              '#name': 'name',
-              '#dueDate': 'dueDate',
-              '#done': 'done'
+              '#title': 'title',
+              '#topic': 'topic'
             },
             ReturnValues:"UPDATED_NEW"       
         };
@@ -91,16 +89,16 @@ export class MagazinesAccess {
     return 
     }
 
-    async deleteTodo (todoId: string, userId:string) {
+    async deleteMagazine (magazineId: string, userId:string) {
         const params = {
-            TableName: this.todosTable,
+            TableName: this.magazinesTable,
             Key:                  
-            { todoId, userId },
+            { magazineId, userId },
         }
 
         await this.docClient.delete(params, function(err) {
             if (err) {
-              logger.info("Unable to delete item.", { todoId, userId, message: err.message });
+              logger.info("Unable to delete item.", { magazineId, userId, message: err.message });
             } else {
               logger.info("Item has been sucessfully deleted");
             }
@@ -120,14 +118,14 @@ export class MagazinesAccess {
         return signedUrl
       }
     
-    async updateTodoUrl(userId: string, todoId: string ): Promise<String> {
+    async updateMagazineUrl(userId: string, magazineId: string ): Promise<String> {
       const bucketName = process.env.ATTACHMENTS_S3_BUCKET
-      const attachmentUrl = `https://${bucketName}.s3.amazonaws.com/${todoId}`
+      const attachmentUrl = `https://${bucketName}.s3.amazonaws.com/${magazineId}`
       
       const params = {
-        TableName: this.todosTable,
+        TableName: this.magazinesTable,
         Key:                  
-          {todoId,
+          {magazineId,
           userId},
 
         UpdateExpression: "set #attachmentUrl = :a",
@@ -140,13 +138,13 @@ export class MagazinesAccess {
         ReturnValues:"UPDATED_NEW"
     };
 
-    logger.info("URL update in progress", {todoId, userId})
+    logger.info("URL update in progress", {magazineId, userId})
 
     await this.docClient.update(params, function(err) {
       if (err) {
-        logger.info("Unable to update an item", {todoId, userId, message: err.message});
+        logger.info("Unable to update an item", {magazineId, userId, message: err.message});
       } else {
-        logger.info("Item update has been successful",{todoId, userId});
+        logger.info("Item update has been successful",{magazineId, userId});
       }
   }).promise();
   
