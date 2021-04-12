@@ -29,91 +29,85 @@ interface MagazinesState {
   loadingMagazines: boolean
 }
 
-export class Todos extends React.PureComponent<TodosProps, TodosState> {
-  state: TodosState = {
-    todos: [],
-    newTodoName: '',
-    loadingTodos: true
+export class Magazines extends React.PureComponent<MagazinesProps, MagazinesState> {
+  state: MagazinesState = {
+    magazines: [],
+    newMagazineName: '',
+    loadingMagazines: true
   }
 
   handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ newTodoName: event.target.value })
+    this.setState({ newMagazineName: event.target.value })
   }
 
-  onEditButtonClick = (todoId: string) => {
-    this.props.history.push(`/todos/${todoId}/edit`)
+  onEditButtonClick = (magazineId: string) => {
+    this.props.history.push(`/magazines/${magazineId}/edit`)
   }
 
-  onTodoCreate = async (event: React.ChangeEvent<HTMLButtonElement>) => {
+  onMagazineCreate = async (event: React.ChangeEvent<HTMLButtonElement>) => {
     try {
       const dueDate = this.calculateDueDate()
-      const newTodo = await createTodo(this.props.auth.getIdToken(), {
-        name: this.state.newTodoName,
+      const newMagazine = await createMagazine(this.props.auth.getIdToken(), {
+        name: this.state.newMagazineName,
         dueDate
       })
       this.setState({
-        todos: [...this.state.todos, newTodo],
-        newTodoName: ''
+        magazines: [...this.state.magazines, newMagazine],
+        newMagazineName: ''
       })
     } catch {
-      alert('Todo creation failed')
+      alert('Magazine creation failed')
     }
   }
 
-  onTodoDelete = async (todoId: string) => {
+  onMagazineDelete = async (magazineId: string) => {
     try {
-      await deleteTodo(this.props.auth.getIdToken(), todoId)
+      await deleteMagazine(this.props.auth.getIdToken(), magazineId)
       this.setState({
-        todos: this.state.todos.filter(todo => todo.todoId != todoId)
+        magazines: this.state.magazines.filter(magazine => magazine.magazineId != magazineId)
       })
     } catch {
-      alert('Todo deletion failed')
+      alert('Magazine deletion failed')
     }
   }
 
-  onTodoCheck = async (pos: number) => {
+  onMagazineCheck = async (pos: number) => {
     try {
-      const todo = this.state.todos[pos]
-      await patchTodo(this.props.auth.getIdToken(), todo.todoId, {
-        name: todo.name,
-        dueDate: todo.dueDate,
-        done: !todo.done
-      })
-      this.setState({
-        todos: update(this.state.todos, {
-          [pos]: { done: { $set: !todo.done } }
-        })
+      const magazine = this.state.magazines[pos]
+      await patchMagazine(this.props.auth.getIdToken(), magazine.magazineId, {
+        title: magazine.title,
+        topic: magazine.topic
       })
     } catch {
-      alert('Todo deletion failed')
+      alert('Magazine deletion failed')
     }
   }
 
   async componentDidMount() {
     try {
-      const todos = await getTodos(this.props.auth.getIdToken())
+      const magazines = await getMagazines(this.props.auth.getIdToken())
       this.setState({
-        todos,
-        loadingTodos: false
+        magazines,
+        loadingMagazines: false
       })
     } catch (e) {
-      alert(`Failed to fetch todos: ${e.message}`)
+      alert(`Failed to fetch magazines: ${e.message}`)
     }
   }
 
   render() {
     return (
       <div>
-        <Header as="h1">TODOs</Header>
+        <Header as="h1">Magazines</Header>
 
-        {this.renderCreateTodoInput()}
+        {this.renderCreateMagazineInput()}
 
-        {this.renderTodos()}
+        {this.renderMagazines()}
       </div>
     )
   }
 
-  renderCreateTodoInput() {
+  renderCreateMagazineInput() {
     return (
       <Grid.Row>
         <Grid.Column width={16}>
@@ -123,7 +117,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
               labelPosition: 'left',
               icon: 'add',
               content: 'New task',
-              onClick: this.onTodoCreate
+              onClick: this.onMagazineCreate
             }}
             fluid
             actionPosition="left"
@@ -138,47 +132,47 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     )
   }
 
-  renderTodos() {
-    if (this.state.loadingTodos) {
+  renderMagazines() {
+    if (this.state.loadingMagazines) {
       return this.renderLoading()
     }
 
-    return this.renderTodosList()
+    return this.renderMagazinesList()
   }
 
   renderLoading() {
     return (
       <Grid.Row>
         <Loader indeterminate active inline="centered">
-          Loading TODOs
+          Loading Magazines
         </Loader>
       </Grid.Row>
     )
   }
 
-  renderTodosList() {
+  renderMagazinesList() {
     return (
       <Grid padded>
-        {this.state.todos.map((todo, pos) => {
+        {this.state.magazines.map((magazine, pos) => {
           return (
-            <Grid.Row key={todo.todoId}>
+            <Grid.Row key={magazine.magazineId}>
               <Grid.Column width={1} verticalAlign="middle">
                 <Checkbox
-                  onChange={() => this.onTodoCheck(pos)}
-                  checked={todo.done}
+                  onChange={() => this.onMagazineCheck(pos)}
+                  checked={magazine.done}
                 />
               </Grid.Column>
               <Grid.Column width={10} verticalAlign="middle">
-                {todo.name}
+                {magazine.title}
               </Grid.Column>
               <Grid.Column width={3} floated="right">
-                {todo.dueDate}
+                {magazine.topic}
               </Grid.Column>
               <Grid.Column width={1} floated="right">
                 <Button
                   icon
                   color="blue"
-                  onClick={() => this.onEditButtonClick(todo.todoId)}
+                  onClick={() => this.onEditButtonClick(magazine.magazineId)}
                 >
                   <Icon name="pencil" />
                 </Button>
@@ -187,13 +181,13 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
                 <Button
                   icon
                   color="red"
-                  onClick={() => this.onTodoDelete(todo.todoId)}
+                  onClick={() => this.onMagazineDelete(magazine.magazineId)}
                 >
                   <Icon name="delete" />
                 </Button>
               </Grid.Column>
-              {todo.attachmentUrl && (
-                <Image src={todo.attachmentUrl} size="small" wrapped />
+              {magazine.attachmentUrl && (
+                <Image src={magazine.attachmentUrl} size="small" wrapped />
               )}
               <Grid.Column width={16}>
                 <Divider />
