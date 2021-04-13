@@ -79,7 +79,7 @@
 					"response": []
 				},
 				{
-					"name": "Update todo",
+					"name": "Update magazine",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -97,7 +97,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Change the world\",\n\t\"dueDate\": \"2019-12-11\",\n\t\"done\": true\n}"
+							"raw": "{\n    \"title\": \"Military History\",\n \"topic\": \"History\"\n }"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines/35dd600f-43c2-4649-903c-615e1586a26f",
@@ -111,7 +111,7 @@
 							],
 							"path": [
 								"dev",
-								"todos",
+								"magazines",
 								"35dd600f-43c2-4649-903c-615e1586a26f"
 							]
 						}
