@@ -1,15 +1,15 @@
 {
 	"info": {
 		"_postman_id": "d0700d24-79ec-487e-8403-b565bef7f8e0",
-		"name": "Udacity C4 Project",
+		"name": "Capstone magazines",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "TODOs",
+			"name": "Magazines",
 			"item": [
 				{
-					"name": "Get all todos",
+					"name": "Get all magazines",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -24,7 +24,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/magazines",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -34,15 +34,14 @@
 								"com"
 							],
 							"path": [
-								"dev",
-								"todos"
+								"magazines"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create todo",
+					"name": "Create magazine",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -60,7 +59,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Water flowers\",\n\t\"dueDate\": \"2019-06-11\"\n}"
+							"raw": "{\n \"title\": \"Wired\",\n  \"topic\": \"Technology\",\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/dev/todos",
