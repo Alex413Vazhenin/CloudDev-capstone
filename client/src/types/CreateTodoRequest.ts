@@ -1,4 +1,4 @@
-export interface CreateTodoRequest {
-  name: string
-  dueDate: string
+export interface CreateMagazineRequest {
+  title: string
+  topic: string
 }

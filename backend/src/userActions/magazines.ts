@@ -47,7 +47,7 @@ export async function deleteMagazine(
     ) {
     const userId = parseUserId(jwtToken)
     
-return await magazinesAccess.deleteTodo(magazineId, userId)
+return await magazinesAccess.deleteMagazine(magazineId, userId)
 }
 
 export function generateUploadUrl(magazineId) {
@@ -57,7 +57,7 @@ export function generateUploadUrl(magazineId) {
 
 export async function updateMagazineUrl(magazineId: string, jwtToken){
     const userId = parseUserId(jwtToken)
-    return await magazinesAccess.updateTodoUrl(
+    return await magazinesAccess.updateMagazineUrl(
         userId,
         magazineId
     )

@@ -18,7 +18,7 @@ provider:
   apiGateway: true
 
   environment:
-    TODOS_TABLE: Todos-${self:provider.stage}
+    MAGAZINES_TABLE: Magazines-${self:provider.stage}
     INDEX_NAME: CREATED_INDEX
     ATTACHMENTS_S3_BUCKET: sls-udagram-vazhenin-attachments-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 3600
@@ -38,13 +38,13 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  # GetTodos
-  GetTodos:
-    handler: src/lambda/http/getTodos.handler
+  # GetMagazine
+  GetMagazines:
+    handler: src/lambda/http/getMagazines.handler
     events:
       - http:
           method: get
-          path: todos
+          path: magazines
           cors: true
           auth: Auth
     iamRoleStatements:
@@ -54,36 +54,36 @@ functions:
         Resource:
           - "*"
 
-  # CreateTodo
-  CreateTodo:
-    handler: src/lambda/http/createTodo.handler
+  # CreateMagazines
+  CreateMagazine:
+    handler: src/lambda/http/createMagazine.handler
     events:
       - http:
           method: post
-          path: todos
+          path: magazines
           cors: true
           auth: Auth
           request:
             schema:
-              application/json: ${file(src/models/create-todo-request.json)}
+              application/json: ${file(src/models/create-magazine-request.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
           - dynamodb:PutItem
         Resource: "*"
 
-  # UpdateTodo
-  UpdateTodo:
-    handler: src/lambda/http/updateTodo.handler
+  # UpdateMagazine
+  UpdateMagazine:
+    handler: src/lambda/http/updateMagazine.handler
     events:
       - http:
           method: patch
-          path: todos/{todoId}
+          path: magazines/{magazineId}
           cors: true
           auth: Auth
           request:
             schema:
-              application/json: ${file(src/models/update-todo-request.json)}
+              application/json: ${file(src/models/update-magazine-request.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -91,13 +91,13 @@ functions:
         Resource:
           - "*"
         
-  # Delete Todo
-  DeleteTodo:
-    handler: src/lambda/http/deleteTodo.handler
+  # Delete magazine
+  DeleteMagazine:
+    handler: src/lambda/http/deleteMagazine.handler
     events:
       - http:
           method: delete
-          path: todos/{todoId}
+          path: magazines/{magazineId}
           cors: true
           auth: Auth
     iamRoleStatements:
@@ -113,7 +113,7 @@ functions:
     events:
       - http:
           method: post
-          path: todos/{todoId}/attachment
+          path: magazines/{magazineId}/attachment
           cors: true
           auth: Auth
     iamRoleStatements:
@@ -125,7 +125,7 @@ functions:
         Action:
           - dynamodb:UpdateItem
           - dynamodb:GetItem
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.MAGAZINES_TABLE}
       - Effect: Allow
         Action:
           - xray:GetSamplingRules
@@ -144,23 +144,23 @@ functions:
 resources:
   Resources:
 
-    TodosTable:
+    MagazinesTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
-          - AttributeName: todoId
+          - AttributeName: magazineId
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S 
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
-          - AttributeName: todoId
+          - AttributeName: magazineId
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.TODOS_TABLE}
+        TableName: ${self:provider.environment.MAGAZINES_TABLE}
         LocalSecondaryIndexes:
           - IndexName: ${self:provider.environment.INDEX_NAME}
             KeySchema:

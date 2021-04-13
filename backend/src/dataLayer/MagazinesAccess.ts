@@ -105,13 +105,13 @@ export class MagazinesAccess {
         }).promise();
     }
 
-    generateUploadUrl(todoId: string) {
+    generateUploadUrl(magazineId: string) {
         const bucketName = process.env.ATTACHMENTS_S3_BUCKET
         const urlExpiration = process.env.urlExpiration
       
         const signedUrl = this.s3.getSignedUrl('putObject', {
           Bucket: bucketName,
-          Key: todoId,
+          Key: magazineId,
           Expires: urlExpiration
         })
         logger.info("Signed URL has been succefully created")
