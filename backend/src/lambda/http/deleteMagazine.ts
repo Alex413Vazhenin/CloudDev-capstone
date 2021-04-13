@@ -6,7 +6,7 @@ import { deleteMagazine } from '../../userActions/magazines'
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const magazineId = event.pathParameters.magazineId
 
-  // TODO: Remove a magazine item by id
+  // Remove a magazine item by id
 
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')

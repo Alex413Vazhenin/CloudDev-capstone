@@ -7,7 +7,7 @@ import { generateUploadUrl, updateMagazineUrl } from '../../userActions/magazine
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const magazineId = event.pathParameters.magazineId
 
-  // TODO: Return a presigned URL to upload a file for a magazine item with the provided id
+  // Return a presigned URL to upload a file for a magazine item with the provided id
 
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')

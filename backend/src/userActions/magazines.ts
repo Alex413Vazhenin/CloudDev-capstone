@@ -25,6 +25,7 @@ export async function createMagazine(
     return await magazinesAccess.createMagazine({
       magazineId,
       userId,
+      createdAt: new Date().toISOString(),
       title: createMagazineRequest.title,
       topic: createMagazineRequest.topic,
       attachmentUrl: attachmentUrl

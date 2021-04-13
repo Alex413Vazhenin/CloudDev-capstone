@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } f
 import { getAllMagazines } from '../../userActions/magazines'
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  // TODO: Get all magazine items for a current user
+  // Get all magazine items for a current user
 
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')

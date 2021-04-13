@@ -8,7 +8,7 @@ import { createMagazine } from '../../userActions/magazines'
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const newMagazine: CreateMagazineRequest = JSON.parse(event.body)
 
-  // TODO: Implement creating a new magazine item
+  // Implement creating a new magazine item
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')
   const jwtToken = split[1]

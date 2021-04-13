@@ -10,7 +10,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const magazineId = event.pathParameters.magazineId
   const updatedMagazine: UpdateMagazineRequest = JSON.parse(event.body)
 
-  // TODO: Update a magazine item with the provided id using values in the "updatedMagazine" object
+  // Update a magazine item with the provided id using values in the "updatedMagazine" object
 
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')
