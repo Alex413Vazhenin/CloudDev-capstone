@@ -152,7 +152,7 @@ resources:
             AttributeType: S
           - AttributeName: magazineId
             AttributeType: S
-          - AttributeName: createdAt
+          - AttributeName: topic
             AttributeType: S 
         KeySchema:
           - AttributeName: userId
@@ -166,7 +166,7 @@ resources:
             KeySchema:
               - AttributeName: userId
                 KeyType: HASH
-              - AttributeName: createdAt
+              - AttributeName: topic
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
