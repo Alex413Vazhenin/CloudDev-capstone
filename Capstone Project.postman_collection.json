@@ -80,19 +80,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines/fe671583-4512-45f6-9475-4265c04362fb",
+							"raw": "https://{{apiId}}/magazines/{{magazineID}}",
 							"protocol": "https",
 							"host": [
-								"{{apiId}}",
-								"execute-api",
-								"eu-central-1",
-								"amazonaws",
-								"com"
+								"{{apiId}}"
 							],
 							"path": [
-								"dev",
 								"magazines",
-								"fe671583-4512-45f6-9475-4265c04362fb"
+								"{{magazineID}}"
 							]
 						}
 					},
