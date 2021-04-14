@@ -13,14 +13,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines",
-							"protocol": "https",
+							"raw": "{{apiId}}/magazines",
 							"host": [
-								"{{apiId}}",
-								"execute-api",
-								"eu-central-1",
-								"amazonaws",
-								"com"
+								"{{apiId}}"
 							],
 							"path": [
 								"magazines"
@@ -36,20 +31,21 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n \"title\": \"Wired\",\n  \"topic\": \"Technology\",\n}"
+							"raw": "{\n \"title\": \"Wired\",\n  \"topic\": \"Technology\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines",
-							"protocol": "https",
+							"raw": "{{apiId}}/magazines",
 							"host": [
-								"{{apiId}}",
-								"execute-api",
-								"eu-central-1",
-								"amazonaws",
-								"com"
+								"{{apiId}}"
 							],
 							"path": [
-								"magazines"
+								"magazines",
+								""
 							]
 						}
 					},
