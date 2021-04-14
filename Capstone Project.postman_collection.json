@@ -64,16 +64,11 @@
 							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines/35dd600f-43c2-4649-903c-615e1586a26f",
 							"protocol": "https",
 							"host": [
-								"{{apiId}}",
-								"execute-api",
-								"eu-central-1",
-								"amazonaws",
-								"com"
+								"{{apiId}}"
 							],
 							"path": [
-								"dev",
 								"magazines",
-								"35dd600f-43c2-4649-903c-615e1586a26f"
+								"{{magazineID}}"
 							]
 						}
 					},
