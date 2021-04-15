@@ -1,5 +1,6 @@
 {
 	"info": {
+		"_postman_id": "37235604-73a7-4cb2-9213-64eb01e3ca1b",
 		"name": "Capstone magazines",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -39,7 +40,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{apiId}}/magazines",
+							"raw": "{{apiId}}/magazines/",
 							"host": [
 								"{{apiId}}"
 							],
@@ -61,7 +62,7 @@
 							"raw": "{\n    \"title\": \"Military History\",\n \"topic\": \"History\"\n }"
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.eu-central-1.amazonaws.com/dev/magazines/35dd600f-43c2-4649-903c-615e1586a26f",
+							"raw": "https://{{apiId}}/magazines/{{magazineID}}",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}"
@@ -116,28 +117,6 @@
 			]
 		}
 	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "2e83c0fe-6650-44d5-a90f-4c27ff720d83",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "977c227e-2df3-42eb-9a48-ec25e2f7eeae",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
 	"auth": {
 		"type": "bearer",
 		"bearer": [
@@ -148,15 +127,33 @@
 			}
 		]
 	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
-			"id": "bf208e6b-f66d-4008-9366-dd541ff65425",
 			"key": "apiId",
 			"value": "https://87pygimzka.execute-api.eu-central-1.amazonaws.com/dev",
 			"type": "string"
 		},
 		{
-			"id": "9bc6399a-d2bb-4f2d-9ffa-8480370d383c",
 			"key": "magazineID",
 			"value": "",
 			"type": "string"
